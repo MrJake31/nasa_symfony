@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TerreController!{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+
+    <iframe src='https://solarsystem.nasa.gov/gltf_embed/2393' width='100%' height='450px' frameborder='0' />
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'D:/Programmes/xampp/htdocs/nasa-symfony/src/Controller/TerreController.php'|file_link(0) }}">src/Controller/TerreController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'D:/Programmes/xampp/htdocs/nasa-symfony/templates/terre/index.html.twig'|file_link(0) }}">templates/terre/index.html.twig</a></code></li>
+    </ul>
+</div>
+{% endblock %}

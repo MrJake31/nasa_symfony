@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AsteroidController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Asteroid's page</h1>
+
+    <div class="accordion" id="accordionExample">
+        {% for key,asteroid in asteroids %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ key }}">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ key }}" aria-expanded="false" aria-controls="collapse{{ key }}">
+                        Asteroids of {{ key }}
+                    </button>
+                </h2>
+                <div id="collapse{{ key }}" class="accordion-collapse collapse" aria-labelledby="heading{{ key }}" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="accordion" id="accordion{{ key }}">
+                            {% for a in asteroid %}
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading{{ a.id }}">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ a.id }}" aria-expanded="false" aria-controls="collapse{{ a.id }}">
+                                            {{ a.name }}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ a.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ a.id }}" data-bs-parent="#accordion{{ key }}">
+                                        <div class="accordion-body">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Diameter</th>
+                                                    <th scope="col">Potentially hazardous</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        {% if(a.estimated_diameter) is defined %}
+                                                            {% if(a.estimated_diameter.kilometers.estimated_diameter_max) > 1 %}
+                                                                {{ a.estimated_diameter.kilometers.estimated_diameter_min }} km - {{ a.estimated_diameter.kilometers.estimated_diameter_max }} km
+                                                            {% else %}
+                                                                {{ a.estimated_diameter.meters.estimated_diameter_min }} m - {{ a.estimated_diameter.meters.estimated_diameter_max }} m
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        {% if(a.is_potentially_hazardous_asteroid) %}
+                                                            ✓
+                                                        {% else %}
+                                                            X
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <h3>Close approach data</h3>
+                                            {% for key,approach_data in a.close_approach_data %}
+                                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="flush-heading{{ key }}1">
+                                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ key }}1" aria-expanded="false" aria-controls="flush-collapse{{ key }}1">
+                                                                Approach date
+                                                            </button>
+                                                        </h2>
+                                                        <div id="flush-collapse{{ key }}1" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ key }}1" data-bs-parent="#accordionFlushExample">
+                                                            <div class="accordion-body">{{ approach_data.close_approach_date }}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="flush-heading{{ key }}2">
+                                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ key }}2" aria-expanded="false" aria-controls="flush-collapse{{ key }}2">
+                                                                Velocity in km.s<sub style="vertical-align: super;font-size: small;">-1</sub>
+                                                            </button>
+                                                        </h2>
+                                                        <div id="flush-collapse{{ key }}2" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ key }}2" data-bs-parent="#accordionFlushExample">
+                                                            <div class="accordion-body">{{ approach_data.relative_velocity.kilometers_per_second }} km.s<sub style="vertical-align: super;font-size: small;">-1</sub></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="flush-heading{{ key }}3">
+                                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ key }}3" aria-expanded="false" aria-controls="flush-collapse{{ key }}3">
+                                                                Miss distance in km
+                                                            </button>
+                                                        </h2>
+                                                        <div id="flush-collapse{{ key }}3" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ key }}3" data-bs-parent="#accordionFlushExample">
+                                                            <div class="accordion-body">{{ approach_data.miss_distance.kilometers }} km</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

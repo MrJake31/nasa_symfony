@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome on my nasa website{% endblock %}
+
+{% block body %}
+
+<header class="masthead">
+    <div class="container">
+        <div class="intro-text">
+            <div class="intro-heading text-uppercase">Welcome Website nasa</div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row flex-lg-row-reverse justify-content-center align-items-center g-5 py-5">
+        <h2 class="display-5 fw-bold lh-1 mb-3">Image of the day</h2>
+        {% if (img is defined) %}
+            {% if (img.media_type == "image") %}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <form>
+                        <input class="btn btn-outline-secondary btn-sm px-4" type="date" max="{{ date_now }}" name="date_img_of_the_day">
+                        <button type="submit" class="btn btn-outline-secondary btn-sm px-4">View Image</button>
+                    </form>
+                </div>
+                <div class="card-hover">
+                    <img src="{{ img.url }}">
+                    <div class="con-text">
+                        {% if (img.title is defined) %}
+                            <h2>{{ img.title }}</h2>
+                            {% if (img.explanation is defined) %}
+                                <p>
+                                    {{ img.explanation }}
+                                </p>
+                            {% endif %}
+                            {% if (img.copyright is defined) %}
+                                <h6><b>Author</b> : {{ img.copyright }}</h6>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% elseif (img.media_type == "audio") %}
+                <div class="col-10 col-sm-8 col-lg-6">
+                    {% if (img.title is defined) %}
+                        <p class="lead">{{ img.title }}</p>
+                    {% endif %}
+                    <audio
+                            controls
+                            src="{{ img.url }}">
+                        Your browser does not support the <code>audio</code> element.
+                    </audio>
+                    {% if (img.copyright is defined) %}
+                        <p class="lead"><b>Author</b> : {{ img.copyright }}</p>
+                    {% endif %}
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold lh-1 mb-3">Image of the day</h2>
+                    {% if (img.explanation is defined) %}
+                        <p class="lead"><b>Explanation</b> : {{ img.explanation }}</p>
+                    {% endif %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <form>
+                            <input class="btn btn-outline-secondary btn-sm px-4" type="date" max="{{ date_now }}" name="date_img_of_the_day">
+                            <button type="submit" class="btn btn-outline-secondary btn-sm px-4">View Image</button>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-10 col-sm-8 col-lg-6">
+                    {% if (img.title is defined) %}
+                        <p class="lead">{{ img.title }}</p>
+                    {% endif %}
+                    <iframe width="420" height="315"
+                            src="{{ img.url }}">
+                    </iframe>
+                    {% if (img.copyright is defined) %}
+                        <p class="lead"><b>Author</b> : {{ img.copyright }}</p>
+                    {% endif %}
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold lh-1 mb-3">Image of the day</h2>
+                    {% if (img.explanation is defined) %}
+                        <p class="lead"><b>Explanation</b> : {{ img.explanation }}</p>
+                    {% endif %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <form>
+                            <input class="btn btn-outline-secondary btn-sm px-4" type="date" max="{{ date_now }}" name="date_img_of_the_day">
+                            <button type="submit" class="btn btn-outline-secondary btn-sm px-4">View Image</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock %}
